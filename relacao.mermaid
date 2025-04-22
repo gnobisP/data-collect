@@ -1,0 +1,119 @@
+
+
+```mermaid
+
+erDiagram
+    Game ||--o{ TeamInGame : "contém"
+    Game ||--o{ Ban : "tem"
+    Game ||--o{ Pick : "tem"
+    Game ||--o{ Participant : "tem"
+    Game ||--o{ GameObjective : "tem"
+    Team ||--o{ TeamInGame : "participa"
+    TeamInGame ||--o{ Participant : "tem"
+    Champion ||--o{ Ban : "pode ser banido"
+    Champion ||--o{ Pick : "pode ser escolhido"
+    Participant }|--|| Player : "é"
+    Participant }|--|| Champion : "joga como"
+    Participant ||--o{ ParticipantTimeStats : "tem estatísticas por tempo"
+
+    Game {
+        string gameid PK
+        string league
+        int year
+        string split
+        boolean playoffs
+        date date
+        string patch
+        int gamelength
+        string result
+        string url
+        boolean datacompleteness
+    }
+
+    Team {
+        string teamid PK
+        string teamname
+    }
+
+    TeamInGame {
+        string team_in_game_id PK
+        string gameid FK
+        string teamid FK
+        string side
+        boolean result
+        int dragons
+        int opp_dragons
+        int barons
+        int opp_barons
+        int towers
+        int opp_towers
+        boolean firstdragon
+        boolean firstherald
+        boolean firstbaron
+        boolean firsttower
+    }
+
+    Champion {
+        string championid PK
+        string name
+    }
+
+    Ban {
+        string banid PK
+        string gameid FK
+        string teamid FK
+        string championid FK
+        int ban_order
+    }
+
+    Pick {
+        string pickid PK
+        string gameid FK
+        string teamid FK
+        string championid FK
+        int pick_order
+    }
+
+    Player {
+        string playerid PK
+        string playername
+    }
+
+    Participant {
+        string participantid PK
+        string gameid FK
+        string team_in_game_id FK
+        string playerid FK
+        string championid FK
+        string position
+        int kills
+        int deaths
+        int assists
+        int totalgold
+        int damagetochampions
+        int wardsplaced
+    }
+
+    ParticipantTimeStats {
+        string statid PK
+        string participantid FK
+        int time_mark
+        int gold
+        int xp
+        int cs
+        int opp_gold
+        int opp_xp
+        int opp_cs
+        int kills
+        int deaths
+        int assists
+    }
+
+    GameObjective {
+        string objectiveid PK
+        string gameid FK
+        string teamid FK
+        string type
+        int count
+    }
+```
