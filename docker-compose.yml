@@ -1,0 +1,14 @@
+version: '3'
+
+services:
+  db:
+    image: postgres:12
+    environment:
+      POSTGRES_DB: relations
+      POSTGRES_USER: relations_users
+      POSTGRES_PASSWORD: gnobisP
+    volumes:
+      - ./dbdata:/var/lib/postgresql/data
+      - ./data/relations.sql:/docker-entrypoint-initdb.d/relations.sql
+    ports:
+      - 5432:5432
